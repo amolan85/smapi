@@ -34,17 +34,18 @@ app.register_blueprint(society_bp, url_prefix="/api/society")
 @app.after_request
 def attach_token(response):
     try:
-        # Check if request contains valid JWT
         verify_jwt_in_request(optional=True)
         identity = get_jwt_identity()
 
         if identity:
-            # Create new token (auto refresh)
             new_token = create_access_token(identity=identity)
             response.headers["Authorization"] = f"Bearer {new_token}"
 
     except Exception:
         pass
+
+    return response   # ✅ VERY IMPORTANT
+
  
 if __name__ == "__main__":
    app.run(host="0.0.0.0", port=5000, debug=True)
