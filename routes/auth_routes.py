@@ -64,7 +64,14 @@ def send_otp():
     user = cursor.fetchone()
 
     if not user:
-        return jsonify({"message": "User not found"}), 404
+        return   jsonify({
+    "success": False,
+    "status_code": 404,
+    "message": "Invalid Mobile No.",
+    "data": {
+         
+           }
+     }),404
 
     otp = "123456"
 

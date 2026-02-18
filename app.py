@@ -8,6 +8,7 @@ from flask_jwt_extended import (
 )
 from routes.auth_routes import auth_bp
 from routes.user_routes import user_bp
+from routes.society_routes import society_bp
 from datetime import timedelta
 
 app = Flask(__name__)
@@ -28,6 +29,7 @@ jwt = JWTManager(app)
 
 app.register_blueprint(auth_bp, url_prefix="/api/auth")
 app.register_blueprint(user_bp, url_prefix="/api/user")
+app.register_blueprint(society_bp, url_prefix="/api/society")
 
 @app.after_request
 def attach_token(response):
@@ -45,7 +47,7 @@ def attach_token(response):
         pass
 
     return response
-
+ 
 if __name__ == "__main__":
    app.run(host="0.0.0.0", port=5000, debug=True)
 
